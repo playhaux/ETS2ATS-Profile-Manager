@@ -34,10 +34,18 @@ The game must be configured to write save files in a format that can be parsed:
 
 This project is built upon the work of several open-source tools and developers:
 
-- **Original Project:** Based on the original *TruckSim-PM* by [elpatron68](https://github.com/elpatron68/TruckSim-PM).
+- **Origins & Evolution:** This project is a major, feature-rich evolution of the original *TruckSim-PM* by [elpatron68](https://github.com). While the original tool focused entirely on basic profile management, the core architecture, backend editing engine, and user interface have been **completely overhauled and rewritten from scratch** to support live save-game editing.
 - **Decryption Engine:** Powered by [SII_Decrypt](https://github.com/TheLazyTomcat/SII_Decrypt) by *TheLazyTomcat* (Mozilla Public License 2.0).
 - **UI Framework:** Styled using [MahApps.Metro](https://github.com/MahApps/MahApps.Metro) (MIT License) and [Material Design Icons](https://github.com/MahApps/MahApps.Metro.IconPacks) (Apache License 2.0).
 - **Exe Icon:** <a href="https://www.flaticon.com/free-icons/truck" title="truck icons">Truck icons created by Magnific - Flaticon</a>
+
+---
+
+### ✨ What's New in This Version:
+* **Heavily Overhauled UI:** Completely modernized interface powered by MahApps.Metro and Material Design Icons.
+* **Profile Renaming:** Dynamically changes your in-game profile name safely without corrupting files.
+* **Save Editor Economy Suite:** Real-time editing for player XP/level, bank balance money, and unlocked driver skill points.
+* **Retained Legacy Features:** Fast profile backups (ZIP format), deletion, and full manual `profile.sii` file decryption.
 
 ---
 
