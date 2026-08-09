@@ -66,6 +66,18 @@ namespace EAPM
                 "This software contains a decryption engine powered by SII_Decrypt by TheLazyTomcat, which is licensed under the Mozilla Public License 2.0. The underlying open-source source code for this specific module is available on GitHub.");
         }
 
+        private void DonateButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo("https://ko-fi.com/playhaux") { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not open donation page: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void DgProfiles_Loaded(object sender, RoutedEventArgs e)
         {
             // Reset editor state
