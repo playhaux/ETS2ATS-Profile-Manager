@@ -60,6 +60,12 @@ namespace EAPM
             ResetEditor();
         }
 
+        private async void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            await this.ShowMessageAsync("About EAPM", 
+                "This software contains a decryption engine powered by SII_Decrypt by TheLazyTomcat, which is licensed under the Mozilla Public License 2.0. The underlying open-source source code for this specific module is available on GitHub.");
+        }
+
         private void DgProfiles_Loaded(object sender, RoutedEventArgs e)
         {
             // Reset editor state
