@@ -37,12 +37,13 @@ This project is built upon the work of several open-source tools and developers:
 - **Original Project:** Based on the original *TruckSim-PM* by [elpatron68](https://github.com/elpatron68/TruckSim-PM).
 - **Decryption Engine:** Powered by [SII_Decrypt](https://github.com/TheLazyTomcat/SII_Decrypt) by *TheLazyTomcat* (Mozilla Public License 2.0).
 - **UI Framework:** Styled using [MahApps.Metro](https://github.com/MahApps/MahApps.Metro) (MIT License) and [Material Design Icons](https://github.com/MahApps/MahApps.Metro.IconPacks) (Apache License 2.0).
+- **Exe Icon:** <a href="https://www.flaticon.com/free-icons/truck" title="truck icons">Truck icons created by Magnific - Flaticon</a>
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE (WTFPL)**. Feel free to copy, modify, and distribute it as you wish.
+This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for details.
 
 ---
 
