@@ -48,5 +48,13 @@ This project is licensed under the **Apache License 2.0**. See the [LICENSE](LIC
 ---
 
 <p align="center">
+  <a href="https://ko-fi.com/playhaux">
+    <img src="https://img.shields.io/badge/Donate-Ko--fi-72a4f2?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Donate on Ko-fi" />
+  </a>
+</p>
+
+---
+
+<p align="center">
   Designed with ❤️ by <a href="https://playhaux.com"><b>Playhaux</b></a>
 </p>
