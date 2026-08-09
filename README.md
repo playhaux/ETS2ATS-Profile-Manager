@@ -34,9 +34,10 @@ The game must be configured to write save files in a format that can be parsed:
 
 This project is built upon the work of several open-source tools and developers:
 
-- **Origins & Evolution:** This project is a major, feature-rich evolution of the original *TruckSim-PM* by [elpatron68](https://github.com). While the original tool focused entirely on basic profile management, the core architecture, backend editing engine, and user interface have been **completely overhauled and rewritten from scratch** to support live save-game editing.
+- **Origins & Evolution:** This project is a major, feature-rich evolution of the original *TruckSim-PM* by [elpatron68](https://github.com/elpatron68/TruckSim-PM). While the original tool focused entirely on basic profile management, the core architecture, backend editing engine, and user interface have been **completely overhauled and rewritten from scratch** to support live save-game editing.
 - **Decryption Engine:** Powered by [SII_Decrypt](https://github.com/TheLazyTomcat/SII_Decrypt) by *TheLazyTomcat* (Mozilla Public License 2.0).
 - **UI Framework:** Styled using [MahApps.Metro](https://github.com/MahApps/MahApps.Metro) (MIT License) and [Material Design Icons](https://github.com/MahApps/MahApps.Metro.IconPacks) (Apache License 2.0).
+- **Telemetry / Notifications:** Powered by [ntfy.Net](https://github.com/sh0shin/ntfy.Net) (GNU General Public License v3.0).
 - **Exe Icon:** <a href="https://www.flaticon.com/free-icons/truck" title="truck icons">Truck icons created by Magnific - Flaticon</a>
 
 ---
