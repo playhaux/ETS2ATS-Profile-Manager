@@ -1,9 +1,9 @@
-﻿using ntfy.Requests;
+using ntfy.Requests;
 using ntfy;
 using System.Reflection;
 using System.IO;
 
-namespace TruckSim_PM
+namespace EAPM
 {
     internal class NtfyUsage
     {
