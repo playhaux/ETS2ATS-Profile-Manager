@@ -1,4 +1,4 @@
-# EAPM — Euro & American Truck Simulator Profile & Save Manager
+# EAPM - Euro & American Truck Simulator Profile & Save Manager
 
 **EAPM** is a lightweight, modern utility designed to easily manage and edit save game profiles for *Euro Truck Simulator 2* and *American Truck Simulator*.
 
