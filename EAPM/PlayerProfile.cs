@@ -79,11 +79,18 @@ namespace EAPM
                         string shortdir = di.Name;
                         if (shortdir.IsHex() & File.Exists(Path.Combine(subdirectory, "profile.sii")))
                         {
+                            string profileSiiPath = Path.Combine(subdirectory, "profile.sii");
+                            bool decrypted = IsDecrypted(profileSiiPath);
+                            if (!decrypted)
+                            {
+                                decrypted = DecryptFile(subdirectory, "profile.sii");
+                            }
+
                             PlayerProfile p = new()
                             {
                                 Directory = subdirectory,
                                 DirectoryShort = shortdir,
-                                Decrypted = IsDecrypted(Path.Combine(subdirectory, "profile.sii")),
+                                Decrypted = decrypted,
                                 EtsAts = game.ToUpper(),
                                 Username = subdirectory.DirectoryToScsUsername(),
                                 LastAccess = di.LastWriteTime.ToString(),
