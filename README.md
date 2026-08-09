@@ -53,8 +53,6 @@ This project is licensed under the **Apache License 2.0**. See the [LICENSE](LIC
   </a>
 </p>
 
----
-
 <p align="center">
   Designed with ❤️ by <a href="https://playhaux.com"><b>Playhaux</b></a>
 </p>
