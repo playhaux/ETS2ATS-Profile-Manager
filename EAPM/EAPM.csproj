@@ -1,24 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <RootNamespace>TruckSim_PM</RootNamespace>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>EAPM</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <ApplicationIcon>baseline_local_shipping_black_36dp.ico</ApplicationIcon>
+    <ApplicationIcon>box-truck.ico</ApplicationIcon>
     <Version>1.0.1</Version>
     <FileVersion>1.0.1.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="baseline_local_shipping_black_36dp.ico" />
+    <Content Include="box-truck.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\README.md" Link="README.md" />
+    <Resource Include="box-truck.png" />
   </ItemGroup>
 
   <ItemGroup>

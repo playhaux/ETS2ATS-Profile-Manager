@@ -1,8 +1,8 @@
-﻿using System.Configuration;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
-namespace TruckSim_PM
+namespace EAPM
 {
     /// <summary>
     /// Interaction logic for App.xaml

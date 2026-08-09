@@ -1,6 +1,6 @@
-﻿using System.IO;
+using System.IO;
 
-namespace TruckSim_PM
+namespace EAPM
 {
     static class StringExtensions
     {

@@ -1,0 +1,430 @@
+<mah:MetroWindow x:Class="EAPM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:EAPM"
+        mc:Ignorable="d"
+        Title="EAPM" 
+        Height="650" 
+        Width="1050"
+        WindowStartupLocation="CenterScreen"
+        Background="#0F0F12"
+        Foreground="#E0E0E6"
+        Icon="pack://application:,,,/EAPM;component/box-truck.png"
+        GlowBrush="{x:Null}"
+        BorderThickness="0"
+        BorderBrush="{x:Null}">
+
+    <Window.Resources>
+        <LinearGradientBrush x:Key="BrandGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="#00B6FF" Offset="0.0"/>
+            <GradientStop Color="#8B2BFF" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <Style x:Key="ModernButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
+            <Setter Property="Background" Value="#1A1A22"/>
+            <Setter Property="Foreground" Value="#E0E0E6"/>
+            <Setter Property="BorderBrush" Value="#2E2E38"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Height" Value="32"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#252530"/>
+                    <Setter Property="BorderBrush" Value="#00B6FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ActionButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#B0B0C0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#00B6FF"/>
+                    <Setter Property="Background" Value="#1E1E28"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DeleteActionButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF4D4D"/>
+                    <Setter Property="Background" Value="#2A1818"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="GradientButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}">
+            <Setter Property="Background" Value="{StaticResource BrandGradient}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="38"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Header Panel with Gradient -->
+        <Border Grid.Row="0" Background="#141418" BorderBrush="#1F1F24" BorderThickness="0,0,0,1" Padding="20,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/EAPM;component/box-truck.png" Width="36" Height="36" Margin="0,0,12,0"/>
+                    <StackPanel>
+                        <TextBlock Text="EAPM" FontSize="20" FontWeight="Bold" Foreground="White" />
+                        <TextBlock Text="Euro &amp; American Truck Simulator Profile Manager" FontSize="11" Foreground="#808090" Margin="0,1,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button Grid.Column="1" Style="{StaticResource ModernButton}" Click="ReloadButton_Click" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="Refresh" Width="14" Height="14" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Reload Profiles" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Main Workspace -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Panel: Profile List -->
+            <Grid Grid.Column="0" Margin="20,15,10,15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="PLAYER PROFILES" FontSize="12" FontWeight="Bold" Foreground="#808090" Margin="0,0,0,10"/>
+
+                <Border Grid.Row="1" Background="#141418" CornerRadius="8" BorderBrush="#1F1F24" BorderThickness="1" ClipToBounds="True">
+                    <DataGrid x:Name="dgProfiles" 
+                              Background="Transparent"
+                              RowBackground="Transparent"
+                              AlternatingRowBackground="#181820"
+                              BorderThickness="0"
+                              GridLinesVisibility="Horizontal"
+                              HorizontalGridLinesBrush="#1F1F24"
+                              HeadersVisibility="Column"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              Loaded="DgProfiles_Loaded"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              Foreground="#E0E0E6">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#1C1C22"/>
+                                <Setter Property="Foreground" Value="#A0A0B0"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="Padding" Value="10,8"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                <Setter Property="BorderBrush" Value="#1F1F24"/>
+                            </Style>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Padding" Value="10,8"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                            <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#252535"/>
+                                        <Setter Property="Foreground" Value="#00B6FF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <!-- Sim Badge -->
+                            <DataGridTemplateColumn Header="Game" Width="60">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="4" Padding="6,3" HorizontalAlignment="Left"
+                                                Background="{Binding EtsAts, Converter={local:SimColorConverter}}"
+                                                BorderThickness="1"
+                                                BorderBrush="{Binding EtsAts, Converter={local:SimBorderColorConverter}}">
+                                            <TextBlock Text="{Binding EtsAts}" FontSize="10" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!-- Profile Name -->
+                            <DataGridTextColumn Header="Profile Name" Binding="{Binding Username}" Width="1.5*" FontWeight="SemiBold"/>
+
+                            <!-- Directory Short -->
+                            <DataGridTextColumn Header="Folder ID" Binding="{Binding DirectoryShort}" Width="2*" Foreground="#808090"/>
+
+                            <!-- Last Access -->
+                            <DataGridTextColumn Header="Last Active" Binding="{Binding LastAccess}" Width="1.5*" Foreground="#808090"/>
+
+                            <!-- Inline Actions Column -->
+                            <DataGridTemplateColumn Header="Actions" Width="220">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,12,0">
+                                            <!-- Rename -->
+                                            <Button Style="{StaticResource ActionButton}" ToolTip="Rename Profile" Click="ActionRename_Click" Tag="{Binding}">
+                                                <iconPacks:PackIconMaterial Kind="Pencil" Width="14" Height="14"/>
+                                            </Button>
+                                            <!-- Copy -->
+                                            <Button Style="{StaticResource ActionButton}" ToolTip="Copy Profile" Click="ActionCopy_Click" Tag="{Binding}">
+                                                <iconPacks:PackIconMaterial Kind="ContentCopy" Width="14" Height="14"/>
+                                            </Button>
+                                            <!-- Backup -->
+                                            <Button Style="{StaticResource ActionButton}" ToolTip="Backup Profile (Zip)" Click="ActionBackup_Click" Tag="{Binding}">
+                                                <iconPacks:PackIconMaterial Kind="ZipBox" Width="14" Height="14"/>
+                                            </Button>
+                                            <!-- Open path -->
+                                            <Button Style="{StaticResource ActionButton}" ToolTip="Open Path in Explorer" Click="ActionExplorer_Click" Tag="{Binding}">
+                                                <iconPacks:PackIconMaterial Kind="FolderOpen" Width="14" Height="14"/>
+                                            </Button>
+                                            <!-- Edit Stats & Skills (Dollar Sign) -->
+                                            <Button Style="{StaticResource ActionButton}" ToolTip="Edit Stats &amp; Skills" Click="ActionEditStats_Click" Tag="{Binding}">
+                                                <iconPacks:PackIconMaterial Kind="CurrencyUsd" Width="14" Height="14"/>
+                                            </Button>
+                                            <!-- Delete -->
+                                            <Button Style="{StaticResource DeleteActionButton}" ToolTip="Delete Profile" Click="ActionDelete_Click" Tag="{Binding}">
+                                                <iconPacks:PackIconMaterial Kind="Delete" Width="14" Height="14"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </Grid>
+
+            <!-- Vertical Separator -->
+            <Border x:Name="separatorBorder" Grid.Column="1" Width="1" Background="#1F1F24" VerticalAlignment="Stretch" Visibility="Collapsed"/>
+
+            <!-- Right Panel: Save & Stats Editor -->
+            <Grid x:Name="rightPanel" Grid.Column="2" Margin="10,15,20,15" Width="380" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="STATS &amp; SKILLS EDITOR" FontSize="12" FontWeight="Bold" Foreground="#808090" VerticalAlignment="Center"/>
+                    <Button Grid.Column="1" Style="{StaticResource ActionButton}" ToolTip="Hide Editor" Click="HideEditor_Click" Padding="4" Height="Auto" Width="Auto" Background="Transparent" BorderThickness="0">
+                        <iconPacks:PackIconMaterial Kind="Close" Width="14" Height="14" Foreground="#808090"/>
+                    </Button>
+                </Grid>
+
+                <!-- Editor Details -->
+                <Border Grid.Row="1" Background="#141418" CornerRadius="8" BorderBrush="#1F1F24" BorderThickness="1" Padding="20">
+                    <Grid>
+                        <!-- No Selection State -->
+                        <Grid x:Name="panelNoSelection" Visibility="Visible">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <iconPacks:PackIconMaterial Kind="AccountEditOutline" Width="48" Height="48" Foreground="#404050" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+                                <TextBlock Text="Select a profile from the left" Foreground="#808090" FontSize="14" HorizontalAlignment="Center"/>
+                                <TextBlock Text="to edit money, XP, and skills." Foreground="#606070" FontSize="12" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Selection Active State -->
+                        <Grid x:Name="panelEditor" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Selected Profile Header -->
+                            <Border Grid.Row="0" BorderBrush="#1F1F24" BorderThickness="0,0,0,1" Padding="0,0,0,15">
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock x:Name="lblSelectedProfile" Text="ProfileName" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                                        <TextBlock x:Name="lblSelectedDetails" Text="ETS2 - Slot ID" FontSize="11" Foreground="#808090" Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Save Selection Dropdown -->
+                            <StackPanel Grid.Row="1" Margin="0,15,0,15">
+                                <TextBlock Text="Select Saved Game:" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0" Margin="0,0,0,6"/>
+                                <ComboBox x:Name="cmbSaveGames" 
+                                          Background="#1C1C22" 
+                                          BorderBrush="#2E2E38" 
+                                          Foreground="White"
+                                          SelectionChanged="CmbSaveGames_SelectionChanged">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding LastWriteTime}" Foreground="#808090" FontSize="11" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <!-- Stats Editing Area (Scrollable) -->
+                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
+                                <Grid x:Name="panelStats" Visibility="Collapsed" Margin="0,0,10,0">
+                                    <StackPanel>
+                                        <!-- Money & XP -->
+                                        <Grid Margin="0,0,0,15">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <!-- Money -->
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="Money Account (€/$)" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0" Margin="0,0,0,5"/>
+                                                <TextBox x:Name="txtMoney" Background="#1C1C22" BorderBrush="#2E2E38" Foreground="White" Padding="6" BorderThickness="1"/>
+                                            </StackPanel>
+
+                                            <!-- XP -->
+                                            <StackPanel Grid.Column="2">
+                                                <TextBlock Text="Experience Points (XP)" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0" Margin="0,0,0,5"/>
+                                                <TextBox x:Name="txtXP" Background="#1C1C22" BorderBrush="#2E2E38" Foreground="White" Padding="6" BorderThickness="1"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <!-- Skills Divider -->
+                                        <Border BorderBrush="#1F1F24" BorderThickness="0,1,0,0" Margin="0,10,0,15" Padding="0,10,0,0">
+                                            <TextBlock Text="Driver Skills" FontSize="12" FontWeight="Bold" Foreground="#00B6FF"/>
+                                        </Border>
+
+                                        <!-- ADR Bitmask Checkboxes -->
+                                        <StackPanel Margin="0,0,0,15">
+                                            <TextBlock Text="Hazardous Materials (ADR Classes)" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0" Margin="0,0,0,8"/>
+                                            <WrapPanel>
+                                                <CheckBox x:Name="chkAdr1" Content="Class 1" Foreground="#E0E0E6" Margin="0,0,15,6" IsChecked="False"/>
+                                                <CheckBox x:Name="chkAdr2" Content="Class 2" Foreground="#E0E0E6" Margin="0,0,15,6" IsChecked="False"/>
+                                                <CheckBox x:Name="chkAdr3" Content="Class 3" Foreground="#E0E0E6" Margin="0,0,15,6" IsChecked="False"/>
+                                                <CheckBox x:Name="chkAdr4" Content="Class 4" Foreground="#E0E0E6" Margin="0,0,15,6" IsChecked="False"/>
+                                                <CheckBox x:Name="chkAdr5" Content="Class 5" Foreground="#E0E0E6" Margin="0,0,15,6" IsChecked="False"/>
+                                                <CheckBox x:Name="chkAdr6" Content="Class 6" Foreground="#E0E0E6" Margin="0,0,15,6" IsChecked="False"/>
+                                            </WrapPanel>
+                                        </StackPanel>
+
+                                        <!-- Sliders for Level-based Skills -->
+                                        <!-- Long Distance -->
+                                        <StackPanel Margin="0,0,0,12">
+                                            <Grid>
+                                                <TextBlock Text="Long Distance Delivery" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0"/>
+                                                <TextBlock Text="{Binding Value, ElementName=sldLongDist}" Foreground="#00B6FF" FontWeight="Bold" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Slider x:Name="sldLongDist" Minimum="0" Maximum="6" Interval="1" IsSnapToTickEnabled="True" Margin="0,5,0,0"/>
+                                        </StackPanel>
+
+                                        <!-- Heavy Cargo -->
+                                        <StackPanel Margin="0,0,0,12">
+                                            <Grid>
+                                                <TextBlock Text="Heavy Cargo" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0"/>
+                                                <TextBlock Text="{Binding Value, ElementName=sldHeavyCargo}" Foreground="#00B6FF" FontWeight="Bold" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Slider x:Name="sldHeavyCargo" Minimum="0" Maximum="6" Interval="1" IsSnapToTickEnabled="True" Margin="0,5,0,0"/>
+                                        </StackPanel>
+
+                                        <!-- Fragile Cargo -->
+                                        <StackPanel Margin="0,0,0,12">
+                                            <Grid>
+                                                <TextBlock Text="Fragile Cargo" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0"/>
+                                                <TextBlock Text="{Binding Value, ElementName=sldFragileCargo}" Foreground="#00B6FF" FontWeight="Bold" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Slider x:Name="sldFragileCargo" Minimum="0" Maximum="6" Interval="1" IsSnapToTickEnabled="True" Margin="0,5,0,0"/>
+                                        </StackPanel>
+
+                                        <!-- Urgent Cargo -->
+                                        <StackPanel Margin="0,0,0,12">
+                                            <Grid>
+                                                <TextBlock Text="Urgent Delivery" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0"/>
+                                                <TextBlock Text="{Binding Value, ElementName=sldUrgentCargo}" Foreground="#00B6FF" FontWeight="Bold" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Slider x:Name="sldUrgentCargo" Minimum="0" Maximum="6" Interval="1" IsSnapToTickEnabled="True" Margin="0,5,0,0"/>
+                                        </StackPanel>
+
+                                        <!-- Eco Driving -->
+                                        <StackPanel Margin="0,0,0,12">
+                                            <Grid>
+                                                <TextBlock Text="Eco-Driving" FontSize="11" FontWeight="SemiBold" Foreground="#A0A0B0"/>
+                                                <TextBlock Text="{Binding Value, ElementName=sldEcoDriving}" Foreground="#00B6FF" FontWeight="Bold" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Slider x:Name="sldEcoDriving" Minimum="0" Maximum="6" Interval="1" IsSnapToTickEnabled="True" Margin="0,5,0,0"/>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                </Grid>
+                            </ScrollViewer>
+
+                            <!-- Apply Buttons -->
+                            <Grid Grid.Row="3" x:Name="panelButtons" Visibility="Collapsed" Margin="0,10,0,0">
+                                <Button Style="{StaticResource GradientButton}" Content="Save Changes" Click="SaveStats_Click" Width="150" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- Bottom Status Bar -->
+        <StatusBar Grid.Row="2" Name="sbar" Background="#141418" BorderBrush="#1F1F24" BorderThickness="0,1,0,0" Padding="15,8">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Kind="InformationOutline" Width="14" Height="14" Foreground="#808090" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock x:Name="statusBarText" Foreground="#808090" FontSize="11" VerticalAlignment="Center">Loading...</TextBlock>
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock FontSize="11" Foreground="#808090" VerticalAlignment="Center">
+                    designed with <Span Foreground="#FF2B55">❤️</Span> by <Hyperlink NavigateUri="https://playhaux.com" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#00B6FF" TextDecorations="None" FontWeight="Bold">Playhaux</Hyperlink>
+                </TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</mah:MetroWindow>
