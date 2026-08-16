@@ -10,7 +10,10 @@ namespace EAPM
         public static async void SendUsage(string titletext, string messagetext)
         {
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            DateTime buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
+            string? appPath = Environment.ProcessPath;
+            DateTime buildDate = !string.IsNullOrEmpty(appPath) && File.Exists(appPath)
+                ? new FileInfo(appPath).LastWriteTime
+                : DateTime.Now;
 
             // Create a new client
             var client = new Client("https://ntfy.sh");
