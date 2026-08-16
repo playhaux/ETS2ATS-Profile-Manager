@@ -349,10 +349,14 @@ namespace EAPM
                 }
 
                 string content = File.ReadAllText(infoFile);
-                var match = System.Text.RegularExpressions.Regex.Match(content, @"\bname:\s*""([^""]*)""");
+                var match = System.Text.RegularExpressions.Regex.Match(content, @"\bname:\s*""?([^""\r\n]+)""?");
                 if (match.Success && !string.IsNullOrWhiteSpace(match.Groups[1].Value))
                 {
-                    return match.Groups[1].Value;
+                    string nameVal = match.Groups[1].Value.Trim();
+                    if (!nameVal.StartsWith("@@"))
+                    {
+                        return nameVal;
+                    }
                 }
             }
             catch { }
