@@ -13,7 +13,7 @@ It allows you to:
 ## ⚙️ How it Works & Requirements
 
 ### 📥 Download EAPM
-You can download the latest compiled executable from the [GitHub Releases](https://github.com/renderbull/ETS2ATS-Profile-Manager/releases/latest) page.
+You can download the latest compiled executable from the [GitHub Releases](https://github.com/playhaux/ETS2ATS-Profile-Manager/releases/latest) page.
 
 ### 1. Disable Steam Cloud Usage
 Steam Cloud synchronization encrypts files in a way that prevents external editors from reading them. You must disable Steam Cloud usage for each profile you wish to edit:
