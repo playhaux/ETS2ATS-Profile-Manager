@@ -40,7 +40,7 @@ The game must be configured to write save files in a format that can be parsed:
 
 ---
 
-### ✨ What's New in This Version:
+## ✨ What's New in This Version:
 * **Heavily Overhauled UI:** Completely modernized interface powered by MahApps.Metro and Material Design Icons.
 * **Profile Renaming:** Dynamically changes your in-game profile name safely without corrupting files.
 * **Save Editor Economy Suite:** Real-time editing for player XP/level, bank balance money, and unlocked driver skill points.
