@@ -21,7 +21,7 @@ You can download the latest compiled executable from the [GitHub Releases](https
 
 ---
 
-## ⚙️ How it Works & Requirements
+## ⚙️ How it Works
 ### 1. Disable Steam Cloud Usage
 Steam Cloud synchronization encrypts files in a way that prevents external editors from reading them. You must disable Steam Cloud usage for each profile you wish to edit:
 1. Start the game.
