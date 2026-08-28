@@ -12,8 +12,8 @@ It allows you to:
 
 ## 📥 Download EAPM
 <p align="center">
-  <a href="https://github.com/renderbull/ETS2ATS-Profile-Manager/releases/latest">
-    <img src="https://img.shields.io/github/v/release/renderbull/ETS2ATS-Profile-Manager?label=Download%20Latest%20Release&style=for-the-badge&logo=github&color=2ea44f" alt="Download Latest Release" />
+  <a href="https://github.com/playhaux/ETS2ATS-Profile-Manager/releases/latest">
+    <img src="https://img.shields.io/github/v/release/playhaux/ETS2ATS-Profile-Manager?label=Download%20Latest%20Release&style=for-the-badge&logo=github&color=2ea44f" alt="Download Latest Release" />
   </a>
 </p>
 
