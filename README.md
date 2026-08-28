@@ -10,17 +10,18 @@ It allows you to:
 
 ---
 
-## ⚙️ How it Works & Requirements
-
-### 📥 Download EAPM
+## 📥 Download EAPM
 <p align="center">
-  <a href="https://github.com/playhaux/ETS2ATS-Profile-Manager/releases/latest">
-    <img src="https://img.shields.io/github/v/release/playhaux/ETS2ATS-Profile-Manager?label=Download%20Latest%20Release&style=for-the-badge&logo=github&color=2ea44f" alt="Download Latest Release" />
+  <a href="https://github.com/renderbull/ETS2ATS-Profile-Manager/releases/latest">
+    <img src="https://img.shields.io/github/v/release/renderbull/ETS2ATS-Profile-Manager?label=Download%20Latest%20Release&style=for-the-badge&logo=github&color=2ea44f" alt="Download Latest Release" />
   </a>
 </p>
 
 You can download the latest compiled executable from the [GitHub Releases](https://github.com/renderbull/ETS2ATS-Profile-Manager/releases/latest) page.
 
+---
+
+## ⚙️ How it Works & Requirements
 ### 1. Disable Steam Cloud Usage
 Steam Cloud synchronization encrypts files in a way that prevents external editors from reading them. You must disable Steam Cloud usage for each profile you wish to edit:
 1. Start the game.
@@ -39,6 +40,14 @@ The game must be configured to write save files in a format that can be parsed:
 
 ---
 
+### ✨ What's New in This Version:
+* **Heavily Overhauled UI:** Completely modernized interface powered by MahApps.Metro and Material Design Icons.
+* **Profile Renaming:** Dynamically changes your in-game profile name safely without corrupting files.
+* **Save Editor Economy Suite:** Real-time editing for player XP/level, bank balance money, and unlocked driver skill points.
+* **Retained Legacy Features:** Fast profile backups (ZIP format), deletion, and full manual `profile.sii` file decryption.
+
+---
+
 ## 🛠️ Credits & Attribution
 
 This project is built upon the work of several open-source tools and developers:
@@ -48,14 +57,6 @@ This project is built upon the work of several open-source tools and developers:
 - **UI Framework:** Styled using [MahApps.Metro](https://github.com/MahApps/MahApps.Metro) (MIT License) and [Material Design Icons](https://github.com/MahApps/MahApps.Metro.IconPacks) (Apache License 2.0).
 - **Telemetry / Notifications:** Powered by [ntfy.Net](https://licenses.nuget.org/GPL-3.0-or-later) (GNU General Public License v3.0).
 - **Exe Icon:** <a href="https://www.flaticon.com/free-icons/truck" title="truck icons">Truck icons created by Magnific - Flaticon</a>
-
----
-
-### ✨ What's New in This Version:
-* **Heavily Overhauled UI:** Completely modernized interface powered by MahApps.Metro and Material Design Icons.
-* **Profile Renaming:** Dynamically changes your in-game profile name safely without corrupting files.
-* **Save Editor Economy Suite:** Real-time editing for player XP/level, bank balance money, and unlocked driver skill points.
-* **Retained Legacy Features:** Fast profile backups (ZIP format), deletion, and full manual `profile.sii` file decryption.
 
 ---
 
@@ -72,5 +73,5 @@ This project is licensed under the **Apache License 2.0**. See the [LICENSE](LIC
 </p>
 
 <p align="center">
-  Designed with ❤️ by <a href="https://playhaux.com"><b>Playhaux</b></a>
+  Developed with ❤️ by <a href="https://playhaux.com"><b>Playhaux</b></a>
 </p>
