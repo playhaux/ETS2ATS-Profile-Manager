@@ -66,6 +66,13 @@ This project is licensed under the **Apache License 2.0**. See the [LICENSE](LIC
 
 ---
 
+<div align="center">
+
+### Support the Project ☕
+If you find this utility helpful and want to support further development, feel free to buy me a coffee!
+
+</div>
+
 <p align="center">
   <a href="https://ko-fi.com/playhaux">
     <img src="https://img.shields.io/badge/Donate-Ko--fi-72a4f2?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Donate on Ko-fi" />
@@ -75,3 +82,4 @@ This project is licensed under the **Apache License 2.0**. See the [LICENSE](LIC
 <p align="center">
   Developed with ❤️ by <a href="https://playhaux.com"><b>Playhaux</b></a>
 </p>
+
