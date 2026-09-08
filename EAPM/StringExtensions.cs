@@ -1,61 +1,44 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace EAPM
 {
     static class StringExtensions
     {
-        public static IEnumerable<String> SplitInParts(this String s, Int32 partLength)
-        {
-            ArgumentNullException.ThrowIfNull(s);
-            if (partLength <= 0)
-            {
-                throw new ArgumentException("Part length has to be positive.", nameof(partLength));
-            }
-
-            for (int i = 0; i < s.Length; i += partLength)
-            {
-                yield return s.Substring(i, Math.Min(partLength, s.Length - i));
-            }
-        }
-
         public static string DirectoryToScsUsername(this string directorystring)
         {
             DirectoryInfo di = new(directorystring);
-            IEnumerable<string> parts = di.Name.SplitInParts(2);
-            string hexstring = String.Join(" ", parts);
-            string[] hexValuesSplit = hexstring.Split(' ');
-            string username = string.Empty;
-            foreach (string hex in hexValuesSplit)
+            string hex = di.Name;
+            try
             {
-                int value = Convert.ToInt32(hex, 16);
-                string stringValue = Char.ConvertFromUtf32(value);
-                char charValue = (char)value;
-                username += charValue;
+                if (string.IsNullOrEmpty(hex) || hex.Length % 2 != 0 || !hex.IsHex())
+                {
+                    return hex;
+                }
+                byte[] bytes = Convert.FromHexString(hex);
+                return Encoding.UTF8.GetString(bytes);
             }
-            return username;
+            catch
+            {
+                return hex;
+            }
         }
 
         public static string ScsUsernameToDirectory(this string username)
         {
-            char[] values = username.ToCharArray();
-            string ScSDirectoryname = string.Empty;
-            foreach (char letter in values)
-            {
-                int value = Convert.ToInt32(letter);
-                string hex = $"{value:X}";
-                ScSDirectoryname += hex;
-            }
-            return ScSDirectoryname;
+            byte[] bytes = Encoding.UTF8.GetBytes(username);
+            return Convert.ToHexString(bytes);
         }
 
         public static bool IsHex(this IEnumerable<char> chars)
         {
-            bool isHex;
             foreach (char c in chars)
             {
-                isHex = ((c >= '0' && c <= '9') ||
-                         (c >= 'a' && c <= 'f') ||
-                         (c >= 'A' && c <= 'F'));
+                bool isHex = (c >= '0' && c <= '9') ||
+                             (c >= 'a' && c <= 'f') ||
+                             (c >= 'A' && c <= 'F');
 
                 if (!isHex)
                 {

@@ -75,9 +75,9 @@ namespace EAPM
                 {
                     foreach (string subdirectory in profilesubdirectories)
                     {
-                        DirectoryInfo di =new(subdirectory);
+                        DirectoryInfo di = new(subdirectory);
                         string shortdir = di.Name;
-                        if (shortdir.IsHex() & File.Exists(Path.Combine(subdirectory, "profile.sii")))
+                        if (shortdir.Length > 0 && shortdir.Length % 2 == 0 && shortdir.IsHex() && File.Exists(Path.Combine(subdirectory, "profile.sii")))
                         {
                             string profileSiiPath = Path.Combine(subdirectory, "profile.sii");
                             bool decrypted = IsDecrypted(profileSiiPath);
@@ -103,52 +103,77 @@ namespace EAPM
             return pf;
         }
 
-        public static void CopyProfile(PlayerProfile profile, string newusername)
+        public static bool CopyProfile(PlayerProfile profile, string newusername)
         {
             string newDirectoryShort = newusername.ScsUsernameToDirectory();
 
-            string profileDirectoryBase;
-            if (profile.EtsAts.ToLower() == "ets")
+            string profileDirectoryBase = Path.GetDirectoryName(profile.Directory) ?? string.Empty;
+            if (string.IsNullOrEmpty(profileDirectoryBase) || !System.IO.Directory.Exists(profileDirectoryBase))
             {
-                profileDirectoryBase = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                @"Euro Truck Simulator 2\profiles");
+                if (profile.EtsAts.ToLower() == "ets")
+                {
+                    profileDirectoryBase = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                        @"Euro Truck Simulator 2\profiles");
+                }
+                else
+                {
+                    profileDirectoryBase = Path.Combine(
+                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                        @"American Truck Simulator\profiles");
+                }
             }
-            else
-            {
-                profileDirectoryBase = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                @"American Truck Simulator\profiles");
-            }
+
             string newDirectoryFull = Path.Combine(profileDirectoryBase, newDirectoryShort);
             if (System.IO.Directory.Exists(newDirectoryFull))
             {
-                return;
+                return false;
             }
-            else
+
+            try
             {
                 // Copy profile directory to new directory
                 CopyDirectory(profile.Directory, newDirectoryFull, true);
-                if (!profile.Decrypted)
+                string filename = Path.Combine(newDirectoryFull, "profile.sii");
+                if (!IsDecrypted(filename))
                 {
                     bool result = DecryptFile(newDirectoryFull, "profile.sii");
                     if (!result) 
                     {
                         System.IO.Directory.Delete(newDirectoryFull, true);
-                        return;
+                        return false;
                     }
                 }
-                string filename = Path.Combine(newDirectoryFull, "profile.sii");
-                using StreamReader sr = new(filename);
-                string content = sr.ReadToEnd();
-                sr.Close();
-                if (content.Contains(profile.Username))
+
+                string content = File.ReadAllText(filename);
+                string pattern = @"profile_name:\s*(""[^""\r\n]*""|[^\r\n]+)";
+                string replacement = $"profile_name: \"{newusername.Replace("\"", "\\\"")}\"";
+                if (System.Text.RegularExpressions.Regex.IsMatch(content, pattern))
+                {
+                    content = System.Text.RegularExpressions.Regex.Replace(content, pattern, replacement);
+                }
+                else
                 {
                     content = content.Replace(profile.Username, newusername);
                 }
-                using StreamWriter sw = new StreamWriter(filename, false);
-                sw.Write(content);
-                sw.Close();
+                File.WriteAllText(filename, content);
+
+                // Remove stale profile backup from copied folder
+                string bakFilename = Path.Combine(newDirectoryFull, "profile.bak.sii");
+                if (File.Exists(bakFilename))
+                {
+                    try { File.Delete(bakFilename); } catch { }
+                }
+
+                return true;
+            }
+            catch
+            {
+                if (System.IO.Directory.Exists(newDirectoryFull))
+                {
+                    try { System.IO.Directory.Delete(newDirectoryFull, true); } catch { }
+                }
+                return false;
             }
         }
 
@@ -270,7 +295,8 @@ namespace EAPM
             {
                 System.IO.Directory.Move(profile.Directory, newDirectoryFull);
 
-                if (!profile.Decrypted)
+                string filename = Path.Combine(newDirectoryFull, "profile.sii");
+                if (!IsDecrypted(filename))
                 {
                     bool result = DecryptFile(newDirectoryFull, "profile.sii");
                     if (!result)
@@ -281,13 +307,24 @@ namespace EAPM
                     }
                 }
 
-                string filename = Path.Combine(newDirectoryFull, "profile.sii");
                 string content = File.ReadAllText(filename);
-                if (content.Contains(profile.Username))
+                string pattern = @"profile_name:\s*(""[^""\r\n]*""|[^\r\n]+)";
+                string replacement = $"profile_name: \"{newusername.Replace("\"", "\\\"")}\"";
+                if (System.Text.RegularExpressions.Regex.IsMatch(content, pattern))
+                {
+                    content = System.Text.RegularExpressions.Regex.Replace(content, pattern, replacement);
+                }
+                else
                 {
                     content = content.Replace(profile.Username, newusername);
                 }
                 File.WriteAllText(filename, content);
+
+                string bakFilename = Path.Combine(newDirectoryFull, "profile.bak.sii");
+                if (File.Exists(bakFilename))
+                {
+                    try { File.Delete(bakFilename); } catch { }
+                }
 
                 profile.Directory = newDirectoryFull;
                 profile.DirectoryShort = newDirectoryShort;

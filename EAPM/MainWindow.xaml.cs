@@ -265,17 +265,25 @@ namespace EAPM
                     return;
                 }
 
-                if (profiles != null && profiles.Any(p => p.Username == newusername && p.EtsAts == toCopy.EtsAts))
+                if (profiles != null && profiles.Any(p => p.Username.Equals(newusername, StringComparison.OrdinalIgnoreCase) && p.EtsAts == toCopy.EtsAts))
                 {
                     await this.ShowMessageAsync("Not Unique", $"The new user name must be unique. '{newusername}' is already in use.");
                     return;
                 }
 
                 statusBarText.Text = $"Copying profile '{toCopy.Username}' to '{newusername}'...";
-                PlayerProfile.CopyProfile(toCopy, newusername);
-                LoadProfiles();
-                ResetEditor();
-                statusBarText.Text = $"Successfully copied profile to '{newusername}'.";
+                bool success = PlayerProfile.CopyProfile(toCopy, newusername);
+                if (success)
+                {
+                    LoadProfiles();
+                    ResetEditor();
+                    statusBarText.Text = $"Successfully copied profile to '{newusername}'.";
+                }
+                else
+                {
+                    statusBarText.Text = "Copy failed. The destination folder might already exist or files are locked.";
+                    await this.ShowMessageAsync("Error", "Failed to copy profile. Ensure no other applications are using the profile files.");
+                }
             }
         }
 
